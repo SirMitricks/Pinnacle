@@ -3,6 +3,7 @@ import PhoneInputStyle from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { Photos } from '../../../../Photos';
 import styles from './ProjectForm.module.scss';
+import { API_URL } from '../../../api';
 
 const PhoneInput = ((PhoneInputStyle as any).default || PhoneInputStyle) as any;
 
@@ -14,7 +15,8 @@ export const ProjectForm: React.FC = () => {
         budget: '',
         location: '',
         service: '',
-        message: ''
+        message: '',
+        consent: false
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -27,7 +29,7 @@ export const ProjectForm: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch('http://localhost:5000/contact', {
+        fetch(`${API_URL}/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
@@ -36,7 +38,7 @@ export const ProjectForm: React.FC = () => {
         .then(data => {
             if (data.success) {
                 alert('Sent successfully!');
-                setFormData({ name: '', phone_number: '', email: '', budget: '', location: '', service: '', message: '' });
+                setFormData({ name: '', phone_number: '', email: '', budget: '', location: '', service: '', message: '', consent: false });
             }
         })
         .catch(err => console.error(err));
@@ -117,8 +119,14 @@ export const ProjectForm: React.FC = () => {
 
                     <div className={styles.formFooter}>
                         <label className={styles.checkboxLabel}>
-                            <input type="checkbox" required />
-                            <span>I agree with Terms of Use and Privacy Policy</span>
+                            <input
+                                type="checkbox"
+                                name="consent"
+                                checked={formData.consent}
+                                onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
+                                required
+                            />
+                            <span>I agree to the processing of my personal data under the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span>
                         </label>
                         <button type="submit" className={styles.submitBtn}>
                             Send <img src={Photos.FormIcon.Send} alt="" />

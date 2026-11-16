@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Services.module.scss';
 import { serviceImage } from './servicesApi';
+import { API_URL } from '../../../api';
 
 interface Service {
     id: number;
@@ -25,7 +26,7 @@ export default function Services() {
     useEffect(() => {
         setLoading(true);
 
-        fetch(`http://localhost:5000/services?category=${activeCategory}`)
+        fetch(`${API_URL}/services?category=${activeCategory}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to load services');

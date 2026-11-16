@@ -1,4 +1,5 @@
 import { Photos } from '../../../../Photos'
+import { API_URL } from '../../../api'
 
 export interface Service {
     id: number
@@ -11,8 +12,8 @@ export interface Service {
 export async function getServices(category: string): Promise<Service[]> {
     const url =
         category === 'all'
-            ? 'http://localhost:5000/services'
-            : `http://localhost:5000/services?category=${category}`
+            ? `${API_URL}/services`
+            : `${API_URL}/services?category=${category}`
 
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to load services')

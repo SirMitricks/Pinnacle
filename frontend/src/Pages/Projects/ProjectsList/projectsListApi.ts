@@ -1,3 +1,5 @@
+import { API_URL } from '../../../api'
+
 export interface Project {
     id: number
     name: string
@@ -23,7 +25,7 @@ export async function getProjects(
         ...params,
     })
 
-    const res = await fetch(`http://localhost:5000/projects?${query.toString()}`)
+    const res = await fetch(`${API_URL}/projects?${query.toString()}`)
     if (!res.ok) throw new Error('Failed to load projects')
 
     return res.json()

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Photos } from '../../../../Photos';
 import styles from './OurTeam.module.scss';
+import { API_URL } from '../../../api';
 
 interface TeamMember {
     id: number;
@@ -15,7 +16,7 @@ export default function OurTeam() {
     const [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:5000/team')
+        fetch(`${API_URL}/team`)
             .then((res) => res.json())
             .then((data) => setTeam(data))
             .catch((err) => console.error(err));

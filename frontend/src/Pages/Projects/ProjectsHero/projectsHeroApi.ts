@@ -1,3 +1,5 @@
+import { API_URL } from '../../../api'
+
 export interface FilterItem {
     id: number
     name?: string
@@ -13,7 +15,7 @@ export interface FiltersResponse {
 }
 
 export async function getFilters(): Promise<FiltersResponse> {
-    const res = await fetch('http://localhost:5000/project-filters')
+    const res = await fetch(`${API_URL}/project-filters`)
     if (!res.ok) throw new Error('Failed to load filters')
     return res.json()
 }

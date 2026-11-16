@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Photos } from '../../../../Photos';
 import styles from './ServicesList.module.scss';
+import { API_URL } from '../../../api';
 
 interface Subsection {
     id: number;
@@ -20,7 +21,7 @@ export const ServicesList: React.FC = () => {
     const [data, setData] = useState<ServiceData | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/services/main')
+        fetch(`${API_URL}/services/main`)
             .then((res) => res.json())
             .then((resData) => setData(resData))
             .catch((err) => console.error(err));

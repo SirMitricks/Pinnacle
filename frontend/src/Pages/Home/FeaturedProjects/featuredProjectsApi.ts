@@ -1,4 +1,5 @@
 import { Photos } from '../../../../Photos';
+import { API_URL } from '../../../api';
 
 export interface Project {
     id: number;
@@ -15,7 +16,7 @@ export interface ProjectsResponse {
 }
 
 export async function getProjects(limit: number, offset: number): Promise<ProjectsResponse> {
-    const res = await fetch(`http://localhost:5000/projects?limit=${limit}&offset=${offset}`);
+    const res = await fetch(`${API_URL}/projects?limit=${limit}&offset=${offset}`);
     if (!res.ok) throw new Error('Failed to load projects');
     return res.json();
 }

@@ -1,3 +1,5 @@
+import { API_URL } from '../../../api'
+
 export interface BlogPost {
     id: number;
     title: string;
@@ -24,7 +26,7 @@ export async function getBlogPosts(
         offset: String(offset),
     });
 
-    const res = await fetch(`http://localhost:5000/blog/list?${query.toString()}`);
+    const res = await fetch(`${API_URL}/blog/list?${query.toString()}`);
     if (!res.ok) throw new Error('Failed to load blog posts');
     return res.json();
 }

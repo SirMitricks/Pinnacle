@@ -4,6 +4,7 @@ import { Photos } from '../../../../Photos';
 import { projectImage } from '../../Home/FeaturedProjects/featuredProjectsApi';
 import { getBlogPosts, type BlogPost } from '../../Blog/BlogNews/blogNewsApi';
 import styles from './RecentArticles.module.scss';
+import { API_URL } from '../../../api';
 
 interface Props {
     postId: string;
@@ -13,7 +14,7 @@ export default function RecentArticles({ postId }: Props) {
     const [items, setItems] = useState<BlogPost[]>([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/blog/list?category=all&limit=3&offset=0`)
+        fetch(`${API_URL}/blog/list?category=all&limit=3&offset=0`)
             .then((r) => r.json())
             .then((data) => {
                 setItems(data.items.filter((p: BlogPost) => p.id !== Number(postId)).slice(0, 2));

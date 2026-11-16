@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Photos } from '../../../../Photos';
 import styles from './BlogList.module.scss';
+import { API_URL } from '../../../api';
 
 interface BlogPost {
     id: number;
@@ -16,7 +17,7 @@ export const BlogList: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:5000/blog')
+        fetch(`${API_URL}/blog`)
             .then((res) => res.json())
             .then((data) => setPosts(data))
             .catch((err) => console.error(err));

@@ -4,6 +4,7 @@ import 'react-phone-input-2/lib/style.css';
 import { Photos } from '../../../Photos';
 import styles from './ContactUs.module.scss';
 import FAQ from '../../Components/FAQ/FAQ';
+import { API_URL } from '../../api';
 
 const PhoneInput = ((PhoneInputStyle as any).default || PhoneInputStyle) as any;
 
@@ -15,6 +16,7 @@ export const ContactUs: React.FC = () => {
         budget: '',
         service: '',
         message: '',
+        consent: false,
     });
 
     const handleChange = (
@@ -29,7 +31,7 @@ export const ContactUs: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        fetch('http://localhost:5000/contact', {
+        fetch(`${API_URL}/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
@@ -45,6 +47,7 @@ export const ContactUs: React.FC = () => {
                         budget: '',
                         service: '',
                         message: '',
+                        consent: false,
                     });
                 }
             })
@@ -212,8 +215,16 @@ export const ContactUs: React.FC = () => {
 
                                 <div className={styles.formFooter}>
                                     <label className={styles.checkboxLabel}>
-                                        <input type="checkbox" required />
-                                        <span>I agree with Terms of Use and Privacy Policy</span>
+                                        <input
+                                            type="checkbox"
+                                            name="consent"
+                                            checked={formData.consent}
+                                            onChange={(e) =>
+                                                setFormData({ ...formData, consent: e.target.checked })
+                                            }
+                                            required
+                                        />
+                                        <span>I agree to the processing of my personal data under the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></span>
                                     </label>
                                     <button type="submit" className={styles.submitBtn}>
                                         Send <img src={Photos.FormIcon.Send} alt="" />

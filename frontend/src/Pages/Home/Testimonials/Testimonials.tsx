@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Photos } from '../../../../Photos'
 import styles from './Testimonials.module.scss'
+import { API_URL } from '../../../api'
 
 interface Testimonial {
     id: number
@@ -16,7 +17,7 @@ export default function Testimonials() {
     const [items, setItems] = useState<Testimonial[]>([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/testimonials?position=bottom')
+        fetch(`${API_URL}/testimonials?position=bottom`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to load testimonials')

@@ -4,12 +4,13 @@ import Button from '../../../Components/Button/Button'
 import TestimonialCard, { type Testimonial } from '../../../Components/TestimonialCard/TestimonialCard'
 import { Photos } from '../../../../Photos'
 import styles from './Hero.module.scss'
+import { API_URL } from '../../../api'
 
 export default function Hero() {
     const [items, setItems] = useState<Testimonial[]>([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/testimonials')
+        fetch(`${API_URL}/testimonials`)
             .then((r) => r.json())
             .then(setItems)
             .catch(console.error)
